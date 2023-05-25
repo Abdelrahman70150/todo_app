@@ -13,7 +13,6 @@ class TasksScreen extends StatelessWidget {
         DateTime.now(),
         initialSelectedDate: DateTime.now(),
         selectionColor:myBluePrimaryColor,
-
         onDateChange: (date) {
           // New date selected
 

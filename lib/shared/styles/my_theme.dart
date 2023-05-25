@@ -22,7 +22,6 @@ ThemeData myLightTheme = ThemeData(
     ),
         appBarTheme: AppBarTheme(
                 color: myBluePrimaryColor,
-                toolbarHeight: 157,
                 elevation: 0.0
         )
 );
