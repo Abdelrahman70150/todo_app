@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/home_layout/home_layout.dart';
 import 'package:todo_app/screens/register_screen/register_screen.dart';
+import 'package:todo_app/screens/widgets/dialog_utils.dart';
 import 'package:todo_app/screens/widgets/validate_utilts.dart';
 import 'package:todo_app/shared/components/my_text_form_field.dart';
 import 'package:todo_app/shared/styles/app_colors.dart';
@@ -15,8 +18,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 
   bool isVisible=true;
-  var emailController= TextEditingController();
-  var passwordController= TextEditingController();
+  var emailController= TextEditingController(text: 'abdo@rout.com');
+  var passwordController= TextEditingController(text: 'abdo123456');
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -121,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: (){
                       if(formKey.currentState!.validate()){
-                        Navigator.pushNamed(context, HomeLayout.routName);
+                        login(context);
                       }
                     },
                     child:
@@ -173,5 +176,36 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  FirebaseAuth serviceAuth = FirebaseAuth.instance;
+  void login(context)async {
+    if (formKey.currentState!.validate()) {
+      DialogUtils.showLoadingDialog(context, message: 'Loading...');
+    }
+    try {
+      final result = await serviceAuth.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      DialogUtils.hideDialog(context);
+      DialogUtils.showMessage(context, message: 'Loged in Successfuly',
+          postActionMessage: 'ok',
+          postAction: () {
+            Navigator.pushReplacementNamed(context, HomeLayout.routName);
+          });
+    } on FirebaseAuthException catch (e) {
+      DialogUtils.hideDialog(context);
+      String errorMessage = '';
+      if (e.code == 'user-not-found') {
+        errorMessage = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Wrong password provided for that user.';
+      }
+      DialogUtils.showMessage(
+        context, message: errorMessage,
+        postActionMessage: 'ok',
+      );
+    }
   }
 }

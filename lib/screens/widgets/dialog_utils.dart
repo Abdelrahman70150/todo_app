@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DialogUtils{
-  static void showLoadingDialog(context, {required String message}){
+  static void showLoadingDialog(
+      context, {required String message}){
     showDialog(context: context, builder: (builder){
       return AlertDialog(
         content: Row(
@@ -21,7 +22,8 @@ class DialogUtils{
    }
    static void showMessage (
        context,
-       {String? message,
+       {
+         String? message,
          String? postActionMessage,
      String? negActionMessage,
          VoidCallback? postAction,

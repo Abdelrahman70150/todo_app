@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/home_layout/home_layout.dart';
+import 'package:todo_app/models/database/database_model.dart' as MyUser;
+import 'package:todo_app/models/database/my_database.dart';
 import 'package:todo_app/screens/login_screen/login_screen.dart';
 import 'package:todo_app/screens/widgets/dialog_utils.dart';
 import 'package:todo_app/screens/widgets/validate_utilts.dart';
@@ -145,7 +148,7 @@ var formKey = GlobalKey<FormState>();
                     ,),
                   ElevatedButton(
                     onPressed: (){
-                  register();
+                  register(context);
                     },
                     child:
                   Padding(
@@ -176,20 +179,24 @@ var formKey = GlobalKey<FormState>();
   }
 
   FirebaseAuth authService = FirebaseAuth.instance;
-  void register ()async{
+  void register (context)async{
     if(formKey.currentState!.validate()){
-
     }
     DialogUtils.showLoadingDialog(context, message: 'Loading ..!');
-
     try {
       var result = await authService.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
+      var myUser = MyUser.User(
+        id: result.user?.uid,
+        name: nameController.text,
+        email: emailController.text,
+      );
+       await MyDataBase.addUser(myUser);
       DialogUtils.hideDialog(context);
-      DialogUtils.showMessage(context, message: 'Successfull Registration',
-      postActionMessage: 'OK',
+      DialogUtils.showMessage(context,message: 'User Registered Succssfully',
+      postActionMessage: 'ok',
       postAction: (){
         Navigator.pushReplacementNamed(context, LoginScreen.routName);
       });
@@ -198,7 +205,6 @@ var formKey = GlobalKey<FormState>();
       DialogUtils.hideDialog(context);
       if (e.code == 'weak-password') {
         errorMessage='The password provided is too weak.';
-
       } else if (e.code == 'email-already-in-use') {
         errorMessage='The account already exists for that email.';
       }
@@ -211,7 +217,7 @@ var formKey = GlobalKey<FormState>();
       DialogUtils.showMessage(
           context, message: errorMessage, postActionMessage: 'Try Again',
       postAction:  (){
-        register();
+        register(context);
       });
     }
 
