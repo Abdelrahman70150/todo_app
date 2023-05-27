@@ -9,6 +9,7 @@ class ShowAddTaskBottomSheet extends StatefulWidget {
 
 class _ShowAddTaskBottomSheetState extends State<ShowAddTaskBottomSheet> {
 var formKey = GlobalKey<FormState>();
+var selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,6 @@ var formKey = GlobalKey<FormState>();
                 IconButton(
                    onPressed: (){
                      chooseDate(context);
-
                    },
                   icon: Icon(Icons.calendar_month_outlined, color: myBluePrimaryColor,),
 
@@ -75,7 +75,7 @@ var formKey = GlobalKey<FormState>();
             ),
             // The Time
             Text(
-              '12:00 AM',
+              selectedDate.toString().substring(0,10),
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                 color:Color(0xffa9a9a9).withOpacity(.4),
               ),
@@ -90,9 +90,6 @@ var formKey = GlobalKey<FormState>();
                   onPressed: (){
                     if(formKey.currentState!.validate()){
                       print('rout');
-                      setState(() {
-
-                      });
                     }
                   }, child: Text(
                 'Add Task',
@@ -106,12 +103,21 @@ var formKey = GlobalKey<FormState>();
       ),
     );
   }
-
-Future<DateTime>? chooseDate(context){
-     showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime.now().add(Duration(days: 365)));
+  void  chooseDate(BuildContext context)async{
+  DateTime? chosenDate = await showDatePicker(context: context,
+    initialDate: selectedDate,
+    firstDate: DateTime.now(),
+    lastDate: DateTime.now().add(Duration(days: 3665),
+    ),
+  );
+  if(chosenDate != null){
+    selectedDate= chosenDate;
+    setState(() {
+      print(selectedDate.toString());
+    });
   }
+
 }
+
+}
+

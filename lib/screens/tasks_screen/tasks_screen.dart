@@ -15,7 +15,6 @@ class TasksScreen extends StatelessWidget {
         selectionColor:myBluePrimaryColor,
         onDateChange: (date) {
           // New date selected
-
         },
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/screens/settings_screen/settings_screen.dart';
-import 'package:todo_app/screens/tasks_screen/tasks_acreen.dart';
+import 'package:todo_app/screens/tasks_screen/tasks_screen.dart';
 import 'package:todo_app/screens/widgets/show_add_task_bottom_sheet.dart';
 import 'package:todo_app/shared/styles/app_colors.dart';
 
@@ -90,12 +90,10 @@ List<Widget> screens =[
         Padding(
           padding:  EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
-
           ),
           child: ShowAddTaskBottomSheet( ),
         ),
     isScrollControlled: true,
-
     );
   }
 }

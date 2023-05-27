@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app/home_layout/home_layout.dart';
-import 'package:todo_app/models/database/database_model.dart' as MyUser;
+import 'package:todo_app/models/database/user_model.dart' as MyUser;
 import 'package:todo_app/models/database/my_database.dart';
 import 'package:todo_app/screens/login_screen/login_screen.dart';
 import 'package:todo_app/screens/widgets/dialog_utils.dart';
@@ -20,10 +19,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isVisible=true;
    var nameController= TextEditingController(text: "AbdelRahman");
 
-  var emailController= TextEditingController(text:"Abdo@rout.com");
+  var emailController= TextEditingController(text:"abdo@rout.com");
 
-  var passwordController= TextEditingController(text: "Abdo123456");
-  var conformPasswordController= TextEditingController(text: "Abdo123456");
+  var passwordController= TextEditingController(text: "abdo123456");
+  var conformPasswordController= TextEditingController(text: "abdo123456");
 
 var formKey = GlobalKey<FormState>();
 
@@ -99,7 +98,7 @@ var formKey = GlobalKey<FormState>();
                     controller: passwordController,
                     validate: (value){
                       if(value==null || value.trim().isEmpty){
-                        return 'please Enter PAssword';
+                        return 'please Enter Password';
                       }
                       if(!ValidationUtils.isPasswordValidate(value)){
                         return 'Please Enter a Valid Password';
@@ -188,14 +187,14 @@ var formKey = GlobalKey<FormState>();
         email: emailController.text,
         password: passwordController.text,
       );
-      var myUser = MyUser.User(
+      var myUser = MyUser.UserModel(
         id: result.user?.uid,
         name: nameController.text,
         email: emailController.text,
       );
-       await MyDataBase.addUser(myUser);
+       await FirebaseFunctions.addUser(myUser);
       DialogUtils.hideDialog(context);
-      DialogUtils.showMessage(context,message: 'User Registered Succssfully',
+      DialogUtils.showMessage(context,message: 'User Registered Successfully',
       postActionMessage: 'ok',
       postAction: (){
         Navigator.pushReplacementNamed(context, LoginScreen.routName);

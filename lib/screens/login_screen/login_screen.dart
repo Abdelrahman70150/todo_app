@@ -189,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
         password: passwordController.text,
       );
       DialogUtils.hideDialog(context);
-      DialogUtils.showMessage(context, message: 'Loged in Successfuly',
+      DialogUtils.showMessage(context, message: 'Loged in Successfully',
           postActionMessage: 'ok',
           postAction: () {
             Navigator.pushReplacementNamed(context, HomeLayout.routName);

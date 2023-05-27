@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User{
+class UserModel{
+  static const String collectionName = 'user';
+
   String? id;
   String? email;
   String? name;
-User({this.id, this.name, this.email});
+UserModel({this.id, this.name, this.email});
 
-User.fromFireStore(DocumentSnapshot <Map<String, dynamic>> snapshot,
+UserModel.fromFireStore(DocumentSnapshot <Map<String, dynamic>> snapshot,
     SnapshotOptions? options,){
   final data = snapshot.data();
   id=data?['id'];

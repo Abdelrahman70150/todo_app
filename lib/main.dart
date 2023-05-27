@@ -4,7 +4,7 @@ import 'package:todo_app/firebase_options.dart';
 import 'package:todo_app/home_layout/home_layout.dart';
 import 'package:todo_app/screens/register_screen/register_screen.dart';
 import 'package:todo_app/screens/settings_screen/settings_screen.dart';
-import 'package:todo_app/screens/tasks_screen/tasks_acreen.dart';
+import 'package:todo_app/screens/tasks_screen/tasks_screen.dart';
 import 'package:todo_app/shared/styles/my_theme.dart';
 
 import 'screens/login_screen/login_screen.dart';
