@@ -136,7 +136,7 @@ bool isVisible = true;
                   Center(child: Text('Forgot Password',style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: primary,
-                    fontSize: 15,
+                    fontSize: 14,
                   ),)),
                   SizedBox(height: MediaQuery.of(context).size.height*0.04,),
                   ElevatedButton(
