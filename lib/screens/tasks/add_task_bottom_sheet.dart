@@ -5,6 +5,8 @@ import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
+  const AddTaskBottomSheet({super.key});
+
   @override
   State<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
 }
@@ -27,7 +29,7 @@ DateTime selectedDate = DateTime.now();
             fontSize: 17,
             fontWeight: FontWeight.bold,),
           textAlign: TextAlign.center),
-          SizedBox(height: 7,),
+          const SizedBox(height: 7,),
           TextFormField(
             maxLines: 1,
             style: GoogleFonts.acme(
@@ -49,7 +51,7 @@ DateTime selectedDate = DateTime.now();
               )
             ),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           TextFormField(
             maxLines: 6,
             style: GoogleFonts.acme(
@@ -63,7 +65,7 @@ DateTime selectedDate = DateTime.now();
                   color: primary,
                 ),
               ),
-              enabledBorder: UnderlineInputBorder(
+              enabledBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(
                   color: Colors.grey,
 
@@ -79,12 +81,12 @@ DateTime selectedDate = DateTime.now();
                 )
             ),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           Text('Select Date',style: GoogleFonts.poppins(
             fontWeight: FontWeight.bold,
             fontSize: 17
           ), textAlign: TextAlign.center),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           InkWell(
             onTap: (){
               selectDate();
@@ -95,10 +97,9 @@ DateTime selectedDate = DateTime.now();
               color: primary,
             ), textAlign: TextAlign.center),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           ElevatedButton(
               onPressed: (){
-                print(selectedDate);
                 TaskModel task = TaskModel(title: titleController.text,
                     description: taskDescriptionController.text,
                     date: DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch);
@@ -106,22 +107,22 @@ DateTime selectedDate = DateTime.now();
                showDialog(context: context,
                   builder: (context) {
                     return  AlertDialog(
-                      title: Text('Successfully'),
-                      content: Text("Task Added Successfully"),
+                      title: const Text('Successfully'),
+                      content: const Text("Task Added Successfully"),
                       actions: [
                         ElevatedButton(
                             onPressed: (){
                               Navigator.pop(context);
                               Navigator.pop(context);
                             },
-                            child: Text(
+                            child: const Text(
                                 'OK'
                             ))
                       ],
                     );
                   },);
               },
-              child: Text(
+              child: const Text(
                 'Add Task'
               ))
         ],
@@ -133,7 +134,7 @@ selectDate() async{
     DateTime? chosenDate = await showDatePicker(
     context: context,
     initialDate: selectedDate, firstDate: DateTime.now(),
-    lastDate: DateTime.now().add(Duration(days: 365)));
+    lastDate: DateTime.now().add(const Duration(days: 365)));
     if(chosenDate==null){
       return ;
     }

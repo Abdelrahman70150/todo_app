@@ -6,10 +6,11 @@ import 'package:todo_c9/model/task_model.dart';
 import 'package:todo_c9/screens/tasks/task_item.dart';
 import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
-import 'package:todo_c9/shared/styles/colors.dart';
 
 class TasksTab extends StatefulWidget {
   static const String routName="tasksTab";
+
+  const TasksTab({super.key});
 
   @override
   State<TasksTab> createState() => _TasksTabState();

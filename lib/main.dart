@@ -29,11 +29,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: LoginScreen.routName,
       routes: {
-        HomeLayout.routName :(context)=>HomeLayout(),
-        SettingsTab.routName :(context)=>SettingsTab(),
-        TasksTab.routName:(context)=>TasksTab(),
-        LoginScreen.routName :(context)=>LoginScreen(),
-        RegisterScreen.routName :(context)=>RegisterScreen(),
+        HomeLayout.routName :(context)=>const HomeLayout(),
+        SettingsTab.routName :(context)=>const SettingsTab(),
+        TasksTab.routName:(context)=>const TasksTab(),
+        LoginScreen.routName :(context)=>const LoginScreen(),
+        RegisterScreen.routName :(context)=>const RegisterScreen(),
 
 
       },

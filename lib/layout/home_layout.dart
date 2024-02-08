@@ -7,6 +7,8 @@ import 'package:todo_c9/shared/styles/colors.dart';
 class HomeLayout extends StatefulWidget {
   static const String routName = "homeLayout";
 
+  const HomeLayout({super.key});
+
   @override
   State<HomeLayout> createState() => _HomeLayoutState();
 }
@@ -22,11 +24,11 @@ class _HomeLayoutState extends State<HomeLayout> {
       backgroundColor: mintGreen,
       appBar: AppBar(
         centerTitle: true  ,
-        title: Text('ToDo'),
+        title: const Text('ToDo'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        shape: StadiumBorder(
+        shape: const StadiumBorder(
             side: BorderSide(
           color: Colors.white,
           width: 3,
@@ -43,7 +45,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         child: BottomNavigationBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          items: [
+          items: const [
             BottomNavigationBarItem(icon: Icon(Icons.list), label: ''),
             BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
           ],

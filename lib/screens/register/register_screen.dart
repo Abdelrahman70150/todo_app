@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:todo_c9/layout/home_layout.dart';
-import 'package:todo_c9/screens/login/validate_utilts/validate_utilts.dart';
+import 'package:todo_c9/screens/login/validate_utils/validate_utils.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routName = 'register';
+
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -37,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           backgroundColor: Colors.transparent,
           centerTitle: true,
           elevation: 0,
-          title: Text(
+          title: const Text(
             'Register',style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -46,7 +48,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Form(
             key: formKey,
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -59,12 +61,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if(!ValidationUtils.isNameValidate(value)){
                         return 'Please Enter A Valid Name';
                       }
+                      return null;
                     },
                     keyboardType: TextInputType.name,
                     cursorColor: Colors.grey,
                     cursorHeight: 25,
                     controller: nameController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       errorStyle: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold
@@ -81,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: Colors.grey,
                       ),
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 20
                     ),
                   ),
@@ -94,12 +97,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if(!ValidationUtils.isEmailValidate(value)){
                         return 'Please Enter a Valid E-Mail';
                       }
+                      return null;
                     },
                     keyboardType: TextInputType.emailAddress,
                     cursorColor: Colors.grey,
                     cursorHeight: 25,
                     controller: emailController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       errorStyle: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold
@@ -116,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: Colors.grey,
                       ),
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 20
                     ),
                   ),
@@ -130,6 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if(!ValidationUtils.isPasswordValidate(value)|| value.trim().isEmpty){
                         return 'Please Enter A Valid Password';
                       }
+                      return null;
                     },
 
                     keyboardType: TextInputType.visiblePassword,
@@ -137,11 +142,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     cursorHeight: 25,
                     controller: passwordController,
                     decoration: InputDecoration(
-                      errorStyle: TextStyle(
+                      errorStyle: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold
                       ),
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
@@ -159,7 +164,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 20
                     ),
                   ),
@@ -170,18 +175,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Navigator.pushNamed(context, HomeLayout.routName);
                       }
                     },
-                    child:Padding(
-                      padding: const EdgeInsets.only(top: 15.0,bottom: 15),
-                      child: Row(children: [
-                        Text('Create Account'),
-                        Spacer(),
-                        Icon(Icons.arrow_forward),
-                      ],),
-                    ),
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(9),
                         ),
+                    ),
+                    child:Padding(
+                      padding:  const EdgeInsets.only(top: 15.0,bottom: 15),
+                      child: Row(
+                        children: const [
+                        Text('Create Account'),
+                         Spacer(),
+                         Icon(Icons.arrow_forward),
+                      ],),
                     ),
                   ),
                 ],

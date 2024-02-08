@@ -4,6 +4,7 @@ import 'package:todo_c9/model/task_model.dart';
 import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
 
+// ignore: must_be_immutable
 class TaskItem extends StatelessWidget {
   TaskModel task;
   TaskItem(this.task, {super.key});
@@ -11,18 +12,18 @@ class TaskItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 5.0,left: 8,right: 8),
-      child: Container(
+      child: SizedBox(
         height: 115,
         child: Card(
           elevation: 7,
           shape: RoundedRectangleBorder(
-            side: BorderSide(
+            side: const BorderSide(
               color: Colors.transparent,
             ),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Slidable(
-            startActionPane:  ActionPane(motion: DrawerMotion(),
+            startActionPane:  ActionPane(motion: const DrawerMotion(),
                 children: [
                   SlidableAction(onPressed: (context){
                     FirebaseManager.deleteTask(task.id);
@@ -30,7 +31,7 @@ class TaskItem extends StatelessWidget {
                   backgroundColor: Colors.red,
                   icon: Icons.delete,
                   label: 'Delete',
-                  borderRadius: BorderRadius.only(topLeft:Radius.circular(20) ,bottomLeft: Radius.circular(20),),
+                  borderRadius: const BorderRadius.only(topLeft:Radius.circular(20) ,bottomLeft: Radius.circular(20),),
                   ),
                   SlidableAction(onPressed: (context){},
                     backgroundColor: Colors.blue,
@@ -42,7 +43,7 @@ class TaskItem extends StatelessWidget {
               padding: const EdgeInsets.all(7.5),
               child: Row(
                 children: [
-                  SizedBox(width: 10,),
+                  const SizedBox(width: 10,),
                   Container(
                     width: 4,
                     height: 62,
@@ -51,14 +52,14 @@ class TaskItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(color: Colors.blue)),
                   ),
-                  SizedBox(width: 20,),
+                  const SizedBox(width: 20,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         task.title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.blue,
@@ -66,7 +67,7 @@ class TaskItem extends StatelessWidget {
                       ),
                       Text(
                         task.description,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: Colors.black45,
@@ -74,7 +75,7 @@ class TaskItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   InkWell(
                     onTap: (){
                       task.isDone=true;
@@ -86,15 +87,15 @@ class TaskItem extends StatelessWidget {
                         color: task.isDone ? Colors.transparent: primary,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: task.isDone ? Center(child: Text('Done !',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,fontSize: 17),))
-                          : Icon(
+                      child: task.isDone ? const Center(child: Text('Done !',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,fontSize: 17),))
+                          : const Icon(
                          Icons.check,
                         size: 30  ,
                         color: Colors.white,
                       ),
                     ),
                   ),
-                  SizedBox(width: 10,),
+                  const SizedBox(width: 10,),
 
                 ],
               ),

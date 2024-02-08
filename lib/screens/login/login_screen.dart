@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:todo_c9/layout/home_layout.dart';
-import 'package:todo_c9/screens/login/validate_utilts/validate_utilts.dart';
+import 'package:todo_c9/screens/login/validate_utils/validate_utils.dart';
 import 'package:todo_c9/screens/register/register_screen.dart';
-import 'package:todo_c9/screens/tasks/tasks_tab.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
 
 class LoginScreen extends StatefulWidget {
 static const String routName = 'login';
+
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -25,7 +26,7 @@ bool isVisible = true;
     return  Container(
       decoration:  BoxDecoration(
         color: mintGreen,
-        image: DecorationImage(
+        image: const DecorationImage(
           image:AssetImage(
             'assets/images/SIGN IN – 1.png',
           ),
@@ -38,7 +39,7 @@ bool isVisible = true;
           backgroundColor: Colors.transparent,
           centerTitle: true,
           elevation: 0,
-          title: Text(
+          title: const Text(
             'Login',style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -47,12 +48,12 @@ bool isVisible = true;
           child: Form(
             key: formKey,
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height*0.23,),
-                  Text('Welcome back!',style:TextStyle(fontWeight: FontWeight.bold
+                  const Text('Welcome back!',style:TextStyle(fontWeight: FontWeight.bold
                   ,fontSize: 24),),
                   SizedBox(height: MediaQuery.of(context).size.height*0.04,),
                   TextFormField(
@@ -63,12 +64,13 @@ bool isVisible = true;
                       if(!ValidationUtils.isEmailValidate(value)){
                         return 'Please enter a Valid email';
                       }
+                      return null;
                     },
                     keyboardType: TextInputType.emailAddress,
                     cursorColor: Colors.grey,
                     cursorHeight: 25,
                     controller: emailController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       errorStyle: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold
@@ -85,7 +87,7 @@ bool isVisible = true;
                         color: Colors.grey,
                       ),
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20
                     ),
                   ),
@@ -99,6 +101,7 @@ bool isVisible = true;
                       if(!ValidationUtils.isPasswordValidate(value)){
                         return 'Please enter a Valid password';
                       }
+                      return null;
                     },
 
                     keyboardType: TextInputType.visiblePassword,
@@ -106,11 +109,11 @@ bool isVisible = true;
                     cursorHeight: 25,
                     controller: passwordController,
                     decoration: InputDecoration(
-                       errorStyle: TextStyle(
+                       errorStyle: const TextStyle(
                          fontSize: 13,
                          fontWeight: FontWeight.bold
                        ),
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
@@ -128,7 +131,7 @@ bool isVisible = true;
                       ),
                       ),
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 20
                     ),
                   ),
@@ -145,19 +148,19 @@ bool isVisible = true;
                           Navigator.pushNamed(context, HomeLayout.routName);
                         }
                       },
-                      child:Padding(
-                        padding: const EdgeInsets.only(top: 15.0,bottom: 15),
-                        child: Row(children: [
-                          Text('Login'),
-                          Spacer(),
-                          Icon(Icons.arrow_forward),
-                        ],),
-                      ),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(9),
                       )
                     ),
+                      child:Padding(
+                        padding: const EdgeInsets.only(top: 15.0,bottom: 15),
+                        child: Row(children: const [
+                          Text('Login'),
+                          Spacer(),
+                          Icon(Icons.arrow_forward),
+                        ],),
+                      ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height*0.04,),
                   InkWell(
