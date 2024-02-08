@@ -14,7 +14,7 @@ WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseFirestore.instance.disableNetwork();
+ // FirebaseFirestore.instance.disableNetwork();
   runApp(const MyApp());
 }
 

@@ -13,7 +13,6 @@ class TaskItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 5.0,left: 8,right: 8),
       child: SizedBox(
-        height: 115,
         child: Card(
           elevation: 7,
           shape: RoundedRectangleBorder(
@@ -46,33 +45,40 @@ class TaskItem extends StatelessWidget {
                   const SizedBox(width: 10,),
                   Container(
                     width: 4,
-                    height: 62,
+                    height:  MediaQuery.of(context).size.height*0.09,
                     decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: task.isDone ? Colors.green : primary,
                         borderRadius: BorderRadius.circular(24),
-                        border: Border.all(color: Colors.blue)),
+                        border: Border.all(color:task.isDone ? Colors.green : primary,)),
                   ),
                   const SizedBox(width: 20,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        task.title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
+                      SizedBox(height: MediaQuery.of(context).size.height*0.019,),
+                      Center(
+                        child: Text(
+                          task.title,
+                          style:  TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color:task.isDone ? Colors.green : primary,
+                          ),
                         ),
                       ),
-                      Text(
-                        task.description,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black45,
+                      SizedBox(height: MediaQuery.of(context).size.height*0.019,),
+                      Center(
+                        child: Text(
+                          task.description,
+                          style:  TextStyle(
+                            fontSize: 15.5,
+                            fontWeight: FontWeight.w500,
+                            color:task.isDone ? Colors.green : primary,
+                          ),
                         ),
                       ),
+                      SizedBox(height: MediaQuery.of(context).size.height*0.019,),
                     ],
                   ),
                   const Spacer(),
