@@ -9,5 +9,10 @@ class ValidationUtils{
     var regex = RegExp(r"^((?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%&*]{6,20})$");
     return regex.hasMatch(password);
   }
+  static bool isNameValidate(String? name){
+    if(name ==null) return false;
+    var regex =RegExp('[a-zA-Z]');
+    return regex.hasMatch(name);
+  }
 
 }
