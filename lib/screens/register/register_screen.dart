@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_c9/layout/home_layout.dart';
+import 'package:todo_c9/screens/login/login_screen.dart';
 import 'package:todo_c9/screens/login/validate_utils/validate_utils.dart';
+import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -40,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           centerTitle: true,
           elevation: 0,
           title: const Text(
-            'Register',style: TextStyle(fontWeight: FontWeight.bold),
+            'Register',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
           ),
         ),
         body: Padding(
@@ -114,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontWeight: FontWeight.bold,
                           height:.5
                       ),
-                      labelText: 'E-Mail Adress',
+                      labelText: 'E-Mail Address',
                       suffixIcon: Icon(
                         Icons.mail_outline,
                         color: Colors.grey,
@@ -172,10 +174,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ElevatedButton(
                     onPressed: (){
                       if(formKey.currentState!.validate()){
-                        Navigator.pushNamed(context, HomeLayout.routName);
+                        FirebaseManager.createAccount(emailController.text, passwordController.text,
+                            onSuccess: (){
+                          showDialog(context: context,
+                            barrierDismissible: false,
+                            builder:(context) =>  AlertDialog(
+                              title: Text("Success"),
+                              content: Text("Your E-Mail have been register Successfully"),
+                            actions: [
+                              ElevatedButton(onPressed: (){
+                                Navigator.pop(context);
+                                Navigator.pushReplacementNamed(context, LoginScreen.routName);
+                              },style: ElevatedButton.styleFrom(backgroundColor: primary),
+                                child:  Text("Okay",style: TextStyle(
+                                  color: Colors.white
+                                ),),)
+                            ],
+                            ),);},
+                        onError: (error){
+                          showDialog(context: context, barrierDismissible: false,
+                              builder: (context)=>AlertDialog(
+                            title: Text('Error'),
+                            content: Text(error.toString()),
+                            actions: [
+                              ElevatedButton(onPressed: (){Navigator.pop(context);},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: primary
+                                  ),
+                                  child: Text('Okay',
+                                  style: TextStyle(
+                                    color: Colors.white
+                                  ),))
+                            ],
+                          ));
+                        });
                       }
                     },
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: primary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(9),
                         ),
@@ -184,9 +220,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       padding:  const EdgeInsets.only(top: 15.0,bottom: 15),
                       child: Row(
                         children: const [
-                        Text('Create Account'),
+                        Text('Create Account',style: TextStyle(color: Colors.white),),
                          Spacer(),
-                         Icon(Icons.arrow_forward),
+                         Icon(Icons.arrow_forward,color: Colors.white,),
                       ],),
                     ),
                   ),

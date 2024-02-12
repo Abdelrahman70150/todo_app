@@ -40,7 +40,7 @@ bool isVisible = true;
           centerTitle: true,
           elevation: 0,
           title: const Text(
-            'Login',style: TextStyle(fontWeight: FontWeight.bold),
+            'Login',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
           ),
         ),
         body: Padding(
@@ -149,6 +149,7 @@ bool isVisible = true;
                         }
                       },
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(9),
                       )
@@ -156,9 +157,9 @@ bool isVisible = true;
                       child:Padding(
                         padding: const EdgeInsets.only(top: 15.0,bottom: 15),
                         child: Row(children: const [
-                          Text('Login'),
+                          Text('Login',style: TextStyle(color: Colors.white),),
                           Spacer(),
-                          Icon(Icons.arrow_forward),
+                          Icon(Icons.arrow_forward,color: Colors.white,),
                         ],),
                       ),
                   ),

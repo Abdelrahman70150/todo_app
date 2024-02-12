@@ -99,6 +99,7 @@ DateTime selectedDate = DateTime.now();
           ),
           const SizedBox(height: 10,),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: primary),
               onPressed: (){
                 TaskModel task = TaskModel(title: titleController.text,
                     description: taskDescriptionController.text,
@@ -111,19 +112,21 @@ DateTime selectedDate = DateTime.now();
                       content: const Text("Task Added Successfully"),
                       actions: [
                         ElevatedButton(
+                            style: ElevatedButton.styleFrom(backgroundColor: primary),
                             onPressed: (){
                               Navigator.pop(context);
                               Navigator.pop(context);
                             },
                             child: const Text(
-                                'OK'
+                                'OK',style: TextStyle(color: Colors.white),
                             ))
                       ],
                     );
                   },);
               },
               child: const Text(
-                'Add Task'
+                'Add Task',
+                style: TextStyle(color: Colors.white),
               ))
         ],
       ),

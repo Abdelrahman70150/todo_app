@@ -28,6 +28,7 @@ class _HomeLayoutState extends State<HomeLayout> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: primary,
         shape: const StadiumBorder(
             side: BorderSide(
           color: Colors.white,
@@ -36,24 +37,32 @@ class _HomeLayoutState extends State<HomeLayout> {
         onPressed: () {
           showAddTaskBottomSheet();
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add,color: Colors.white
+          ,),
       ),
       bottomNavigationBar: BottomAppBar(
-        height: 60,
+        height: 66,// padding: EdgeInsets.only(bottom:2),
         notchMargin: 8,
         shape: const CircularNotchedRectangle(),
-        child: BottomNavigationBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: ''),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
-          ],
-          currentIndex: index,
-          onTap: (value) {
-            index = value;
-            setState(() {});
-          },
+        child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Center(
+            child: BottomNavigationBar(
+              showSelectedLabels: false,
+              elevation: 0,
+              iconSize: 25,
+              backgroundColor: Colors.transparent,
+              items:  const [
+                BottomNavigationBarItem(icon: Icon(Icons.list), label: '',),
+                BottomNavigationBarItem(icon: Icon(Icons.settings), label: '',),
+              ],
+              currentIndex: index,
+              onTap: (value) {
+                index = value;
+                setState(() {});
+              },
+            ),
+          ),
         ),
       ),
       body: tabs[index],

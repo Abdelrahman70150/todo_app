@@ -13,7 +13,14 @@ class MyThemeData{
       showUnselectedLabels: false,
     ),
     scaffoldBackgroundColor: Colors.transparent,
-    appBarTheme: const AppBarTheme(),
+    appBarTheme:  AppBarTheme(
+      color: primary,
+      titleTextStyle: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 22
+      )
+    ),
 
   );
 
