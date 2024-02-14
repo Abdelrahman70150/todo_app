@@ -41,74 +41,73 @@ class TaskItem extends StatelessWidget {
                 ]),
             child: Padding(
               padding: const EdgeInsets.all(7.5),
-              child: Expanded(
-                child: Row(
-                  children: [
-                    const SizedBox(width: 10,),
-                    Container(
-                      width: 4,
-                      height:  MediaQuery.of(context).size.height*0.09,
+              child: Row(
+                children: [
+                  SizedBox(width:MediaQuery.of(context).size.width*0.02),
+                  Container(
+                    width: 4,
+                    height:  MediaQuery.of(context).size.height*0.09,
+                    decoration: BoxDecoration(
+                        color: task.isDone ? Colors.green : primary,
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(color:task.isDone ? Colors.green : primary,)),
+                  ),
+                  const SizedBox(width: 20,),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: MediaQuery.of(context).size.height*0.019,),
+                        Text(
+                          task.title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style:  TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color:task.isDone ? Colors.green : primary,
+                          ),
+                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height*0.001,),
+                        Text(
+                          task.description,
+                          maxLines: 10,
+                           overflow: TextOverflow.ellipsis,
+                          style:  TextStyle(
+                            fontSize: 15.5,
+                            fontWeight: FontWeight.w500,
+                            color:task.isDone ? Colors.green : Colors.grey,
+                          ),
+                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height*0.019,),
+                      ],
+                    ),
+                  ),
+                   SizedBox(width:MediaQuery.of(context).size.width*0.03),
+                //  SizedBox(width: 20,),
+                  InkWell(
+                    onTap: (){
+                      task.isDone=true;
+                      FirebaseManager.updateTask(task);
+                    },
+                    child: Container(
+                      height: 34,width: 69,
                       decoration: BoxDecoration(
-                          color: task.isDone ? Colors.green : primary,
-                          borderRadius: BorderRadius.circular(24),
-                          border: Border.all(color:task.isDone ? Colors.green : primary,)),
-                    ),
-                    const SizedBox(width: 20,),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(height: MediaQuery.of(context).size.height*0.019,),
-                          Text(
-                            task.title,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style:  TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color:task.isDone ? Colors.green : primary,
-                            ),
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height*0.001,),
-                          Text(
-                            task.description,
-                            maxLines: 10,
-                             overflow: TextOverflow.ellipsis,
-                            style:  TextStyle(
-                              fontSize: 15.5,
-                              fontWeight: FontWeight.w500,
-                              color:task.isDone ? Colors.green : Colors.grey,
-                            ),
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height*0.019,),
-                        ],
+                        color: task.isDone ? Colors.transparent: primary,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: task.isDone ? const Center(child: Text('Done !',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,fontSize: 17),))
+                          : const Icon(
+                         Icons.check,
+                        size: 30  ,
+                        color: Colors.white,
                       ),
                     ),
-                    SizedBox(width: 20,),
-                    InkWell(
-                      onTap: (){
-                        task.isDone=true;
-                        FirebaseManager.updateTask(task);
-                      },
-                      child: Container(
-                        height: 34,width: 69,
-                        decoration: BoxDecoration(
-                          color: task.isDone ? Colors.transparent: primary,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: task.isDone ? const Center(child: Text('Done !',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,fontSize: 17),))
-                            : const Icon(
-                           Icons.check,
-                          size: 30  ,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10,),
-                
-                  ],
-                ),
+                  ),
+                  SizedBox(width:MediaQuery.of(context).size.width*0.02),
+
+                ],
               ),
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_c9/layout/home_layout.dart';
 import 'package:todo_c9/screens/login/validate_utils/validate_utils.dart';
 import 'package:todo_c9/screens/register/register_screen.dart';
+import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -145,7 +146,31 @@ bool isVisible = true;
                   ElevatedButton(
                       onPressed: (){
                         if(formKey.currentState!.validate()){
-                          Navigator.pushNamed(context, HomeLayout.routName);
+                          FirebaseManager.login(emailController.text, passwordController.text,
+                              onSuccess: (){
+                            showDialog(
+                              barrierDismissible: false,
+                              context: context, builder: (context) =>
+                               AlertDialog(title: const Text('success'),
+                              content: const Text('you have successfully loged into Todo App'),
+                              actions: [
+                                ElevatedButton(onPressed: (){Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routName, (route) => false);},
+                              child:const Text('Thank You') ,
+                              )
+                              ],)
+                            ,);
+                              }, onError: (error){
+                                showDialog(barrierDismissible: false,
+                                  context: context, builder: (context) =>
+                                  AlertDialog(title: const Text('Error'),
+                                    content:Text( error.toString(),),
+                                    actions: [
+                                      ElevatedButton(onPressed: (){Navigator.pop(context);},
+                                        child:const Text('Okay') ,
+                                      )
+                                    ],)
+                                ,);
+                              });
                         }
                       },
                     style: ElevatedButton.styleFrom(
@@ -154,9 +179,9 @@ bool isVisible = true;
                         borderRadius: BorderRadius.circular(9),
                       )
                     ),
-                      child:Padding(
-                        padding: const EdgeInsets.only(top: 15.0,bottom: 15),
-                        child: Row(children: const [
+                      child:const Padding(
+                        padding: EdgeInsets.only(top: 15.0,bottom: 15),
+                        child: Row(children: [
                           Text('Login',style: TextStyle(color: Colors.white),),
                           Spacer(),
                           Icon(Icons.arrow_forward,color: Colors.white,),

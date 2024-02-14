@@ -15,7 +15,7 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
   int index = 0;
-  List<Widget> tabs = [TasksTab(), SettingsTab()];
+  List<Widget> tabs = [const TasksTab(), const SettingsTab()];
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         notchMargin: 8,
         shape: const CircularNotchedRectangle(),
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: Center(
             child: BottomNavigationBar(
               showSelectedLabels: false,
@@ -74,7 +74,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         context: context, builder: (context){
       return Padding(
         padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: AddTaskBottomSheet(),
+        child: const AddTaskBottomSheet(),
       );
     });
   }

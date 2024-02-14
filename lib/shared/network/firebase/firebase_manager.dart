@@ -38,6 +38,7 @@ class FirebaseManager{
         email: email,
         password: password,
       );
+        credential.user!.sendEmailVerification();
       onSuccess();
 
     } on FirebaseAuthException catch (e) {
@@ -47,17 +48,23 @@ class FirebaseManager{
         onError(e.message);
       }
     } catch (e) {
-      print(e);
+     // print(e);
     }
   }
- static Future<void> login(String email,String password)async{
+ static Future<void> login(String email,String password,{required Function onSuccess,required Function onError})async{
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password
       );
+      if(credential.user!.emailVerified){
+        onSuccess();
+      }
+     else{
+       onError('Please verify your E-Mail');
+      }
     } on FirebaseAuthException catch (e) {
-      print('Wrong E-Mail and Password');
+      onError(e.message);
     }
   }
 }

@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TodoApp',
       debugShowCheckedModeBanner: false,
-      initialRoute:   HomeLayout.routName,//LoginScreen.routName,
+      initialRoute:  LoginScreen.routName,
       routes: {
         HomeLayout.routName :(context)=>const HomeLayout(),
         SettingsTab.routName :(context)=>const SettingsTab(),

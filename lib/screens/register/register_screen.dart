@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_c9/layout/home_layout.dart';
 import 'package:todo_c9/screens/login/login_screen.dart';
 import 'package:todo_c9/screens/login/validate_utils/validate_utils.dart';
 import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
@@ -177,24 +176,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         FirebaseManager.createAccount(emailController.text, passwordController.text,
                             onSuccess: (){
                           showDialog(context: context,
-                            barrierDismissible: false,
+                            barrierDismissible: true,
                             builder:(context) =>  AlertDialog(
-                              title: Text("Success"),
-                              content: Text("Your E-Mail have been register Successfully"),
+                              title: const Text("Success"),
+                              content: const Text("Your E-Mail have been register Successfully,\nPlease Verify your E-Mail"),
                             actions: [
                               ElevatedButton(onPressed: (){
                                 Navigator.pop(context);
                                 Navigator.pushReplacementNamed(context, LoginScreen.routName);
                               },style: ElevatedButton.styleFrom(backgroundColor: primary),
-                                child:  Text("Okay",style: TextStyle(
+                                child:  const Text("Okay",style: TextStyle(
                                   color: Colors.white
                                 ),),)
                             ],
                             ),);},
                         onError: (error){
-                          showDialog(context: context, barrierDismissible: false,
+                          showDialog(context: context,
+                              barrierDismissible: false,
                               builder: (context)=>AlertDialog(
-                            title: Text('Error'),
+                            title: const Text('Error'),
                             content: Text(error.toString()),
                             actions: [
                               ElevatedButton(onPressed: (){
@@ -202,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: primary
                                   ),
-                                  child: Text('Okay',
+                                  child: const Text('Okay',
                                   style: TextStyle(
                                     color: Colors.white
                                   ),))
@@ -217,10 +217,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           borderRadius: BorderRadius.circular(9),
                         ),
                     ),
-                    child:Padding(
-                      padding:  const EdgeInsets.only(top: 15.0,bottom: 15),
+                    child:const Padding(
+                      padding:  EdgeInsets.only(top: 15.0,bottom: 15),
                       child: Row(
-                        children: const [
+                        children: [
                         Text('Create Account',style: TextStyle(color: Colors.white),),
                          Spacer(),
                          Icon(Icons.arrow_forward,color: Colors.white,),

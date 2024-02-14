@@ -15,7 +15,7 @@ class MyThemeData{
     scaffoldBackgroundColor: Colors.transparent,
     appBarTheme:  AppBarTheme(
       color: primary,
-      titleTextStyle: TextStyle(
+      titleTextStyle: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.bold,
         fontSize: 22
