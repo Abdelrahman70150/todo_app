@@ -197,7 +197,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             title: Text('Error'),
                             content: Text(error.toString()),
                             actions: [
-                              ElevatedButton(onPressed: (){Navigator.pop(context);},
+                              ElevatedButton(onPressed: (){
+                                Navigator.pop(context);},
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: primary
                                   ),
