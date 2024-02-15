@@ -173,13 +173,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ElevatedButton(
                     onPressed: (){
                       if(formKey.currentState!.validate()){
-                        FirebaseManager.createAccount(emailController.text, passwordController.text,
+                        FirebaseManager.createAccount(emailController.text, nameController.text ,passwordController.text,
                             onSuccess: (){
                           showDialog(context: context,
                             barrierDismissible: true,
                             builder:(context) =>  AlertDialog(
                               title: const Text("Success"),
-                              content: const Text("Your E-Mail have been register Successfully,\nPlease Verify your E-Mail"),
+                              content: const Text("Your E-Mail have been register Successfully,"),
+                                // "\nPlease Verify your E-Mail"),
                             actions: [
                               ElevatedButton(onPressed: (){
                                 Navigator.pop(context);

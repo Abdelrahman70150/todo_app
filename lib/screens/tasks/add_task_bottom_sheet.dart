@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_c9/model/task_model.dart';
@@ -101,7 +102,9 @@ DateTime selectedDate = DateTime.now();
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: primary),
               onPressed: (){
-                TaskModel task = TaskModel(title: titleController.text,
+                TaskModel task = TaskModel(
+                    userId: FirebaseAuth.instance.currentUser!.uid,
+                    title: titleController.text,
                     description: taskDescriptionController.text,
                     date: DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch);
                 FirebaseManager.addTask(task);
