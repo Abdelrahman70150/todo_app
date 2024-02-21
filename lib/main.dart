@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_c9/firebase_options.dart';
 import 'package:todo_c9/layout/home_layout.dart';
+import 'package:todo_c9/providers/my_provider.dart';
 import 'package:todo_c9/screens/login/login_screen.dart';
 import 'package:todo_c9/screens/register/register_screen.dart';
 import 'package:todo_c9/screens/settings/settings_tab.dart';
@@ -14,7 +16,9 @@ WidgetsFlutterBinding.ensureInitialized();
     options: DefaultFirebaseOptions.currentPlatform,
   );
  // FirebaseFirestore.instance.disableNetwork();
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => MyProvider(),
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,10 +27,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
     return MaterialApp(
       title: 'TodoApp',
       debugShowCheckedModeBanner: false,
-      initialRoute:  LoginScreen.routName,
+      initialRoute:  provider.firebaseUser != null ?
+          HomeLayout.routName
+          :LoginScreen.routName,
       routes: {
         HomeLayout.routName :(context)=>const HomeLayout(),
         SettingsTab.routName :(context)=>const SettingsTab(),

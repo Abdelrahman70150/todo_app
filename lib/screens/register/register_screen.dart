@@ -65,22 +65,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                     keyboardType: TextInputType.name,
-                    cursorColor: Colors.grey,
+                    cursorColor:primary,
                     cursorHeight: 25,
                     controller: nameController,
-                    decoration: const InputDecoration(
-                      errorStyle: TextStyle(
+                    decoration:  InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primary),),
+                      errorStyle: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold
                       ),
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
                           height:.5
                       ),
                       labelText: 'First Name',
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.drive_file_rename_outline,
                         color: Colors.grey,
                       ),
@@ -101,22 +103,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                     keyboardType: TextInputType.emailAddress,
-                    cursorColor: Colors.grey,
+                    cursorColor:primary,
                     cursorHeight: 25,
                     controller: emailController,
-                    decoration: const InputDecoration(
-                      errorStyle: TextStyle(
+                    decoration:  InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primary),),
+                      errorStyle: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold
                       ),
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
                           height:.5
                       ),
                       labelText: 'E-Mail Address',
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.mail_outline,
                         color: Colors.grey,
                       ),
@@ -139,10 +143,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
 
                     keyboardType: TextInputType.visiblePassword,
-                    cursorColor: Colors.grey,
+                    cursorColor:primary,
                     cursorHeight: 25,
                     controller: passwordController,
                     decoration: InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primary),),
                       errorStyle: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold
@@ -178,6 +184,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           showDialog(context: context,
                             barrierDismissible: true,
                             builder:(context) =>  AlertDialog(
+                              icon: const Icon(Icons.done_all_outlined),
                               title: const Text("Success"),
                               content: const Text("Your E-Mail have been register Successfully,"),
                                 // "\nPlease Verify your E-Mail"),
@@ -195,7 +202,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           showDialog(context: context,
                               barrierDismissible: false,
                               builder: (context)=>AlertDialog(
-                            title: const Text('Error'),
+                                icon: const Icon(Icons.error_outline),
+                                title: const Text('Error'),
                             content: Text(error.toString()),
                             actions: [
                               ElevatedButton(onPressed: (){

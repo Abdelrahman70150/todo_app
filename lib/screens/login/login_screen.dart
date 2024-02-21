@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_c9/layout/home_layout.dart';
 import 'package:todo_c9/screens/login/validate_utils/validate_utils.dart';
 import 'package:todo_c9/screens/register/register_screen.dart';
 import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
+
+import '../../providers/my_provider.dart';
 
 class LoginScreen extends StatefulWidget {
 static const String routName = 'login';
@@ -24,6 +27,8 @@ bool isVisible = true;
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
+
     return  Container(
       decoration:  BoxDecoration(
         color: mintGreen,
@@ -68,22 +73,26 @@ bool isVisible = true;
                       return null;
                     },
                     keyboardType: TextInputType.emailAddress,
-                    cursorColor: Colors.grey,
+                    cursorColor: primary,
                     cursorHeight: 25,
                     controller: emailController,
-                    decoration: const InputDecoration(
-                      errorStyle: TextStyle(
+                    decoration:  InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: primary)
+                      ),
+
+                      errorStyle: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold
                       ),
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
                         height:.5
                       ),
                       labelText: 'Email',
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.mail_outline,
                         color: Colors.grey,
                       ),
@@ -104,12 +113,14 @@ bool isVisible = true;
                       }
                       return null;
                     },
-
                     keyboardType: TextInputType.visiblePassword,
-                    cursorColor: Colors.grey,
+                    cursorColor: primary,
                     cursorHeight: 25,
                     controller: passwordController,
-                    decoration: InputDecoration(
+                    decoration:
+                    InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: primary),),
                        errorStyle: const TextStyle(
                          fontSize: 13,
                          fontWeight: FontWeight.bold
@@ -151,27 +162,35 @@ bool isVisible = true;
                             showDialog(
                               barrierDismissible: false,
                               context: context, builder: (context) =>
-                               AlertDialog(title: const Text('success'),
+                               AlertDialog(
+                                 icon: Icon(Icons.done_all,color: primary,size: 45,),
+                                 title: const Text('success'),
                               content: const Text('you have successfully loged into Todo App'),
                               actions: [
-                                ElevatedButton(onPressed: (){Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routName, (route) => false);},
-                              child:const Text('Thank You') ,
+                                ElevatedButton(onPressed: (){
+                                  provider.initUser();
+                                  Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routName, (route) => false);
+                                  },
+                                  style: ElevatedButton.styleFrom(backgroundColor: primary),
+                              child:const Text('Thank You',style: TextStyle(color: Colors.white),) ,
                               )
                               ],)
                             ,);
                               }, onError: (error){
                                 showDialog(barrierDismissible: false,
                                   context: context, builder: (context) =>
-                                  AlertDialog(title: const Text('Error'),
+                                  AlertDialog(
+                                    icon: const Icon(Icons.error_outline,color: Colors.red,size: 40,),
+                                    title: const Text('Error'),
                                     content:Text( error.toString(),),
                                     actions: [
                                       ElevatedButton(onPressed: (){Navigator.pop(context);},
-                                        child:const Text('Okay') ,
+                                        style: ElevatedButton.styleFrom(backgroundColor: primary),
+                                        child:const Text('Okay',style: TextStyle(color: Colors.white),) ,
                                       )
                                     ],)
                                 ,);
-                              });
-                        }
+                              });}
                       },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primary,

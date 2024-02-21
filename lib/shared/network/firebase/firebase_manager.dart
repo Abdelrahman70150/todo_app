@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -76,19 +75,23 @@ class FirebaseManager{
      // print(e);
     }
   }
- static Future<void> login(String email,String password,{required Function onSuccess,required Function onError})async{
+
+   static Future<UserModel?>readUser(String id)async{
+    DocumentSnapshot<UserModel>userDoc = await getUserCollection().doc(id).get();
+    return userDoc.data();
+  }
+  static Future<void> login(String email,String password,{required Function onSuccess,required Function onError})async{
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password
       );
-      onSuccess();
-     //  if(credential.user!.emailVerified){
-     //    onSuccess();
-     //  }
-     // else{
-     //   onError('Please verify your E-Mail');
-     //  }
+      if(credential.user!.emailVerified){
+        onSuccess();
+      }
+     else{
+       onError('Please verify your E-Mail');
+      }
     } on FirebaseAuthException catch (e) {
       onError(e.message);
     }

@@ -4,6 +4,7 @@ import 'package:todo_c9/shared/styles/colors.dart';
 class MyThemeData{
 
   static ThemeData lightTheme =ThemeData(
+    primaryColor: primary,
     brightness: Brightness.light,
     bottomNavigationBarTheme:  BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
