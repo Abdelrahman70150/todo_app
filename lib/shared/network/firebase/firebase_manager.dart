@@ -50,8 +50,8 @@ class FirebaseManager{
   static Future<void> deleteTask(String taskId){
   return getTasksCollection().doc(taskId).delete();
   }
-  static Future<void> updateTask (TaskModel task){
-  return getTasksCollection().doc(task.id).update(task.toJson());
+  static Future<void> updateTask (TaskModel task) async{
+  await getTasksCollection().doc(task.id).update(task.toJson());
   }
  static Future<void> createAccount(String email, String name, String password,
      {required Function onSuccess,required Function onError})async{
@@ -75,7 +75,6 @@ class FirebaseManager{
      // print(e);
     }
   }
-
    static Future<UserModel?>readUser(String id)async{
     DocumentSnapshot<UserModel>userDoc = await getUserCollection().doc(id).get();
     return userDoc.data();

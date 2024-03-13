@@ -13,7 +13,7 @@ class MyThemeData{
       type:BottomNavigationBarType.fixed,
       showUnselectedLabels: false,
     ),
-    scaffoldBackgroundColor: Colors.transparent,
+    scaffoldBackgroundColor:mintGreen,
     appBarTheme:  AppBarTheme(
       color: primary,
       titleTextStyle: const TextStyle(

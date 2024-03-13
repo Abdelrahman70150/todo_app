@@ -23,24 +23,52 @@ DateTime selectedDate = DateTime.now();
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CalendarTimeline(
-          initialDate:selectedDate,
-          firstDate: DateTime.now().subtract(const Duration(days: 10)),
-          lastDate: DateTime.now().add(const Duration(days: 365)),
-          onDateSelected: (date){
-            selectedDate=date;
-            setState(() {
-            });
-          },
-          leftMargin: 20,
-          monthColor: primary,
-          dayColor: Colors.grey,
-          activeDayColor: Colors.white,
-          activeBackgroundDayColor: primary,
-          dotsColor:Colors.white,
-          selectableDayPredicate: (date) => true,
-          locale: 'en_ISO',
+        Stack(
+          children: [
+            Container(color: primary,height: 70 ,),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: CalendarTimeline(
+                initialDate:selectedDate,
+                firstDate: DateTime.now().subtract(const Duration(days: 10)),
+                lastDate: DateTime.now().add(const Duration(days: 365)),
+                onDateSelected: (date){
+                  selectedDate=date;
+                  setState(() {
+                  });
+                },
+                leftMargin: 10,
+                monthColor: Colors.white,
+                dayColor: Colors.grey,
+                activeDayColor: primary,
+                activeBackgroundDayColor:  Colors.white,
+                dotsColor:primary,
+                selectableDayPredicate: (date) => true,
+                locale: 'en_ISO',
+              ),
+            ),
+
+          ],
         ),
+        //Container(color: primary,height: 40,),
+        // CalendarTimeline(
+        //   initialDate:selectedDate,
+        //   firstDate: DateTime.now().subtract(const Duration(days: 10)),
+        //   lastDate: DateTime.now().add(const Duration(days: 365)),
+        //   onDateSelected: (date){
+        //     selectedDate=date;
+        //     setState(() {
+        //     });
+        //   },
+        //   leftMargin: 20,
+        //   monthColor: primary,
+        //   dayColor: Colors.grey,
+        //   activeDayColor: Colors.white,
+        //   activeBackgroundDayColor: primary,
+        //   dotsColor:Colors.white,
+        //   selectableDayPredicate: (date) => true,
+        //   locale: 'en_ISO',
+        // ),
         const SizedBox(height: 10,),
         Expanded(
           child:StreamBuilder<QuerySnapshot<TaskModel>>(

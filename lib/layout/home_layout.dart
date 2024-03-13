@@ -35,7 +35,6 @@ class _HomeLayoutState extends State<HomeLayout> {
           },
               icon: const Icon(Icons.login_outlined,color: Colors.white ,))
         ],
-        centerTitle: true  ,
         title:   Text('ToDo ${provider.userModel?.name}'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

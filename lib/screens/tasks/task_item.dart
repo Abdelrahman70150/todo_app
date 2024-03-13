@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_'
     'slidable.dart';
 import 'package:todo_c9/model/task_model.dart';
+import 'package:todo_c9/screens/edit_task/edit_task_screen.dart';
 import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
 
@@ -33,7 +34,11 @@ class TaskItem extends StatelessWidget {
                   label: 'Delete',
                   borderRadius: const BorderRadius.only(topLeft:Radius.circular(20) ,bottomLeft: Radius.circular(20),),
                   ),
-                  SlidableAction(onPressed: (context){},
+                  SlidableAction(
+                    onPressed: (context){ 
+                      Navigator.push(context, 
+                      MaterialPageRoute(builder: (context)=>UpdateTask(taskModel: task)));
+                    },
                     backgroundColor: Colors.blue,
                     icon: Icons.edit,
                     label: 'Edit',
