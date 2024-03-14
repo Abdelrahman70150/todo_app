@@ -130,7 +130,7 @@ DateTime selectedDate = DateTime.now();
               child: const Text(
                 'Add Task',
                 style: TextStyle(color: Colors.white),
-              ))
+              )),
         ],
       ),
     );
