@@ -4,6 +4,8 @@ import 'package:todo_c9/screens/login/validate_utils/validate_utils.dart';
 import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
 
+import '../../shared/components/dialog.dart';
+
 class RegisterScreen extends StatefulWidget {
   static const String routName = 'register';
 
@@ -181,43 +183,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if(formKey.currentState!.validate()){
                         FirebaseManager.createAccount(emailController.text, nameController.text ,passwordController.text,
                             onSuccess: (){
-                          showDialog(context: context,
-                            barrierDismissible: true,
-                            builder:(context) =>  AlertDialog(
-                              icon: const Icon(Icons.done_all_outlined),
-                              title: const Text("Success"),
-                              content: const Text("Your E-Mail have been register Successfully,"),
-                                // "\nPlease Verify your E-Mail"),
-                            actions: [
-                              ElevatedButton(onPressed: (){
-                                Navigator.pop(context);
-                                Navigator.pushReplacementNamed(context, LoginScreen.routName);
-                              },style: ElevatedButton.styleFrom(backgroundColor: primary),
-                                child:  const Text("Okay",style: TextStyle(
-                                  color: Colors.white
-                                ),),)
-                            ],
-                            ),);},
-                        onError: (error){
-                          showDialog(context: context,
-                              barrierDismissible: false,
-                              builder: (context)=>AlertDialog(
-                                icon: const Icon(Icons.error_outline),
-                                title: const Text('Error'),
-                            content: Text(error.toString()),
-                            actions: [
-                              ElevatedButton(onPressed: (){
-                                Navigator.pop(context);},
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: primary
-                                  ),
-                                  child: const Text('Okay',
-                                  style: TextStyle(
-                                    color: Colors.white
-                                  ),))
-                            ],
-                          ));
-                        });
+                              DialogUtils.showMessage(
+                                isDismissible: false,
+                                context,
+                                message: 'you have successfully Registered into Todo App',
+                                title:  'success',
+                                icon: Icon(Icons.done_all,color: primary,size: 45,),
+                                postActionMessage: 'Thank U',
+                                postAction: (){
+                                 // provider.initUser();
+                                  Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routName, (route) => false);
+                                },
+                              );
+
+                            }, onError: (error){
+                              DialogUtils.showMessage(
+                                isDismissible: false,
+                                context,
+                                message: error.toString(),
+                                title:  'Error',
+                                icon: const Icon(Icons.error_outline,color: Colors.red,size: 40,),
+                                postActionMessage: 'OK',
+                                postAction: (){
+                                },
+                              );
+
+                            }
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_c9/model/task_model.dart';
+import 'package:todo_c9/shared/components/dialog.dart';
 import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
 
@@ -26,17 +26,15 @@ DateTime selectedDate = DateTime.now();
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('Add New Task',style: GoogleFonts.poppins(
-            fontSize: 17,
-            fontWeight: FontWeight.bold,),
+          Text('Add New Task',style:Theme.of(context).textTheme.displayLarge,
           textAlign: TextAlign.center),
           const SizedBox(height: 7,),
+          //task field
           TextFormField(
+            cursorColor: primary,
+            cursorHeight: 25,
             maxLines: 1,
-            style: GoogleFonts.acme(
-                fontSize: 20,
-                fontWeight: FontWeight.bold
-            ),
+            style:Theme.of(context).textTheme.titleLarge,
             controller: titleController,
             decoration: InputDecoration(
                 focusedBorder: UnderlineInputBorder(
@@ -45,20 +43,16 @@ DateTime selectedDate = DateTime.now();
                 ),
               hintText:
                 'Enter Your Task',
-              hintStyle: GoogleFonts.acme(
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-                color: Colors.grey
-              )
+              hintStyle:Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey),
             ),
           ),
           const SizedBox(height: 10,),
+          //description
           TextFormField(
             maxLines: 6,
-            style: GoogleFonts.acme(
-              fontSize: 20,
-              fontWeight: FontWeight.bold
-            ),
+            cursorColor: primary,
+            cursorHeight: 25,
+            style: Theme.of(context).textTheme.titleLarge,
             controller: taskDescriptionController,
             decoration: InputDecoration(
               focusedBorder: UnderlineInputBorder(
@@ -75,28 +69,20 @@ DateTime selectedDate = DateTime.now();
               ),
                 hintText:
                 'Task Description',
-                hintStyle: GoogleFonts.acme(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                    color: Colors.grey
-                )
+                hintStyle:Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey),
             ),
           ),
           const SizedBox(height: 10,),
-          Text('Select Date',style: GoogleFonts.poppins(
-            fontWeight: FontWeight.bold,
-            fontSize: 17
-          ), textAlign: TextAlign.center),
+          Text('Select Date',
+              style: Theme.of(context).textTheme.displayLarge, textAlign: TextAlign.center),
           const SizedBox(height: 10,),
           InkWell(
             onTap: (){
               selectDate();
             },
-            child: Text(selectedDate.toString().substring(0,10),style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
-              color: primary,
-            ), textAlign: TextAlign.center),
+            child: Text(selectedDate.toString().substring(0,10),
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(color: primary,fontSize: 18),
+                textAlign: TextAlign.center),
           ),
           const SizedBox(height: 10,),
           ElevatedButton(
@@ -108,28 +94,21 @@ DateTime selectedDate = DateTime.now();
                     description: taskDescriptionController.text,
                     date: DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch);
                 FirebaseManager.addTask(task);
-               showDialog(context: context,
-                  builder: (context) {
-                    return  AlertDialog(
-                      title: const Text('Successfully'),
-                      content: const Text("Task Added Successfully"),
-                      actions: [
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(backgroundColor: primary),
-                            onPressed: (){
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                                'OK',style: TextStyle(color: Colors.white),
-                            ))
-                      ],
-                    );
-                  },);
+                DialogUtils.showMessage(
+                    context,
+                    message: "Task Added Successfully",
+                    title: 'Successfully',
+                    isDismissible: false,
+                  postActionMessage:'OK' ,
+                  postAction: (){
+                    Navigator.pop(context);
+                    },
+                  icon: Icon(Icons.done_all,color: primary,size: 45,),
+                );
               },
-              child: const Text(
+              child:  Text(
                 'Add Task',
-                style: TextStyle(color: Colors.white),
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.white,fontWeight: FontWeight.bold),
               )),
         ],
       ),
@@ -138,6 +117,23 @@ DateTime selectedDate = DateTime.now();
 
 selectDate() async{
     DateTime? chosenDate = await showDatePicker(
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: primary, // <-- SEE HERE
+                onPrimary:Colors.white, // <-- SEE HERE
+                onSurface: Colors.black,
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  foregroundColor: primary, // button text color
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        },
     context: context,
     initialDate: selectedDate, firstDate: DateTime.now(),
     lastDate: DateTime.now().add(const Duration(days: 365)));

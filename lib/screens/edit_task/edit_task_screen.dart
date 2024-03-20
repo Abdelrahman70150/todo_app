@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_c9/model/task_model.dart';
+import 'package:todo_c9/shared/components/dialog.dart';
 import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
 
@@ -27,6 +27,7 @@ class _UpdateTaskState extends State<UpdateTask> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: mintGreen,
       appBar: AppBar(
         title: const Text(
           'To Do List',
@@ -44,36 +45,29 @@ class _UpdateTaskState extends State<UpdateTask> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Text('Edit Task',style: GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 7,),
+                  Text('Edit Task',style:Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 17.5)),
+                  const SizedBox(height: 17,),
+                  //title
                   TextFormField(
                     maxLines: 1,
-                    style: GoogleFonts.acme(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
-                    ),
+                    cursorColor: primary,
+                    cursorHeight: 25,
+                    style:Theme.of(context).textTheme.titleLarge,
                     controller: title,
                     decoration: InputDecoration(
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: primary,),
                         ),
-                        hintText:
-                        'Enter Your Task',
-                        hintStyle: GoogleFonts.acme(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Colors.grey
-                        )
                     ),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(height: 20,),
+                  //description
                   TextFormField(
                     maxLines: 6,
-                    style: GoogleFonts.acme(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
-                    ),
+                    cursorColor: primary,
+                    cursorHeight: 25,
+                    style:Theme.of(context).textTheme.titleLarge,
                     controller: description,
                     decoration: InputDecoration(
                         focusedBorder: UnderlineInputBorder(
@@ -84,39 +78,26 @@ class _UpdateTaskState extends State<UpdateTask> {
                         enabledBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.grey,
-              
                           ),
-              
                         ),
-                        hintText:
-                        'Task Description',
-                        hintStyle: GoogleFonts.acme(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Colors.grey
-                        )
                     ),
                   ),
                   const SizedBox(height: 20,),
-                  Text('Select Date',style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17
-                  ), textAlign: TextAlign.center),
-                  const SizedBox(height: 10,),
+                  Text('Select Date',style:Theme.of(context).textTheme.displayLarge, textAlign: TextAlign.center),
+                  const SizedBox(height: 20,),
+                  //date
                   InkWell(
                     onTap: (){
                       selectDate();
                     },
                     child: Text(
-                      selectedDate.toString().substring(0,10),style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      color: primary,
-                    ), textAlign: TextAlign.center),
+                      selectedDate.toString().substring(0,10),
+                        style:Theme.of(context).textTheme.displayLarge?.copyWith(color: primary,fontSize: 18),
+                        textAlign: TextAlign.center),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(height: 20,),
                   ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: primary,fixedSize: const Size( 250,50)),
+                      style: ElevatedButton.styleFrom(backgroundColor: primary,fixedSize: const Size( 300,50)),
                       onPressed: (){
                         TaskModel task = TaskModel(userId: widget.taskModel.userId,
                              title: title.text,
@@ -125,28 +106,20 @@ class _UpdateTaskState extends State<UpdateTask> {
                             isDone: widget.taskModel.isDone,
                             date: DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch);
                         FirebaseManager.updateTask(task);
-                        showDialog(context: context,
-                          builder: (context) {
-                            return  AlertDialog(
-                              title: const Text('Successfully'),
-                              content: const Text("Task Updated0 Successfully"),
-                              actions: [
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(backgroundColor: primary),
-                                    onPressed: (){
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text(
-                                      'OK',style: TextStyle(color: Colors.white),
-                                    ))
-                              ],
-                            );
-                          },);
+                        DialogUtils.showMessage(context,
+                            message: "Task Updated Successfully",
+                            title: 'Successfully',
+                            isDismissible: false,
+                          postActionMessage: 'OK',
+                          icon:  Icon(Icons.done_all,color: primary,size: 45,),
+                          postAction: (){
+                            Navigator.pop(context);
+                          }
+                        );
                       },
-                      child: const Text(
+                      child:  Text(
                         'Save Changes',
-                        style: TextStyle(color: Colors.white),
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.white,fontWeight: FontWeight.bold),
                       )),
                 ],
               

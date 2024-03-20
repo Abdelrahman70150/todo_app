@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_c9/layout/home_layout.dart';
 import 'package:todo_c9/screens/login/validate_utils/validate_utils.dart';
 import 'package:todo_c9/screens/register/register_screen.dart';
+import 'package:todo_c9/shared/components/dialog.dart';
 import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
 
@@ -80,7 +81,6 @@ bool isVisible = true;
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: primary)
                       ),
-
                       errorStyle: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold
@@ -152,45 +152,41 @@ bool isVisible = true;
                     fontWeight: FontWeight.bold,
                     color: primary,
                     fontSize: 14,
-                  ),)),
+                  ),)
+                  ),
                   SizedBox(height: MediaQuery.of(context).size.height*0.04,),
                   ElevatedButton(
                       onPressed: (){
                         if(formKey.currentState!.validate()){
                           FirebaseManager.login(emailController.text, passwordController.text,
                               onSuccess: (){
-                            showDialog(
-                              barrierDismissible: false,
-                              context: context, builder: (context) =>
-                               AlertDialog(
-                                 icon: Icon(Icons.done_all,color: primary,size: 45,),
-                                 title: const Text('success'),
-                              content: const Text('you have successfully loged into Todo App'),
-                              actions: [
-                                ElevatedButton(onPressed: (){
+                            DialogUtils.showMessage(
+                              isDismissible: false,
+                              context,
+                              message: 'you have successfully logged into Todo App',
+                             title:  'success',
+                            icon: Icon(Icons.done_all,color: primary,size: 45,),
+                            postActionMessage: 'Thank U',
+                                postAction: (){
                                   provider.initUser();
                                   Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routName, (route) => false);
-                                  },
-                                  style: ElevatedButton.styleFrom(backgroundColor: primary),
-                              child:const Text('Thank You',style: TextStyle(color: Colors.white),) ,
-                              )
-                              ],)
-                            ,);
+                                },
+                            );
+
                               }, onError: (error){
-                                showDialog(barrierDismissible: false,
-                                  context: context, builder: (context) =>
-                                  AlertDialog(
-                                    icon: const Icon(Icons.error_outline,color: Colors.red,size: 40,),
-                                    title: const Text('Error'),
-                                    content:Text( error.toString(),),
-                                    actions: [
-                                      ElevatedButton(onPressed: (){Navigator.pop(context);},
-                                        style: ElevatedButton.styleFrom(backgroundColor: primary),
-                                        child:const Text('Okay',style: TextStyle(color: Colors.white),) ,
-                                      )
-                                    ],)
-                                ,);
-                              });}
+                                DialogUtils.showMessage(
+                                  isDismissible: false,
+                                  context,
+                                  message: error.toString(),
+                                  title:  'Error',
+                                  icon: const Icon(Icons.error_outline,color: Colors.red,size: 40,),
+                                 postActionMessage: 'OK',
+                                  postAction: (){
+                                  },
+                                );
+
+                              }
+                              );}
                       },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primary,
@@ -220,9 +216,6 @@ bool isVisible = true;
                       ),),
                     ),
                   ),
-
-
-
 
                 ],
               ),

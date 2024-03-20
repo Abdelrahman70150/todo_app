@@ -50,32 +50,14 @@ DateTime selectedDate = DateTime.now();
 
           ],
         ),
-        //Container(color: primary,height: 40,),
-        // CalendarTimeline(
-        //   initialDate:selectedDate,
-        //   firstDate: DateTime.now().subtract(const Duration(days: 10)),
-        //   lastDate: DateTime.now().add(const Duration(days: 365)),
-        //   onDateSelected: (date){
-        //     selectedDate=date;
-        //     setState(() {
-        //     });
-        //   },
-        //   leftMargin: 20,
-        //   monthColor: primary,
-        //   dayColor: Colors.grey,
-        //   activeDayColor: Colors.white,
-        //   activeBackgroundDayColor: primary,
-        //   dotsColor:Colors.white,
-        //   selectableDayPredicate: (date) => true,
-        //   locale: 'en_ISO',
-        // ),
+
         const SizedBox(height: 10,),
         Expanded(
           child:StreamBuilder<QuerySnapshot<TaskModel>>(
             stream: FirebaseManager.getTask(selectedDate),
           builder: (context, snapshot) {
               if(snapshot.connectionState==ConnectionState.waiting){
-                return const Center(child: CircularProgressIndicator());
+                return  Center(child: CircularProgressIndicator(color: primary));
               }
               if(snapshot.hasError){
                 return const Center(child: Text('SomeThing Went Wrong'));

@@ -68,10 +68,7 @@ class TaskItem extends StatelessWidget {
                           task.title,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style:  TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color:task.isDone ? Colors.green : primary,
+                          style: Theme.of(context).textTheme.displayLarge?.copyWith(color:task.isDone ? Colors.green : primary,
                           ),
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height*0.001,),
@@ -79,11 +76,7 @@ class TaskItem extends StatelessWidget {
                           task.description,
                           maxLines: 10,
                            overflow: TextOverflow.ellipsis,
-                          style:  TextStyle(
-                            fontSize: 15.5,
-                            fontWeight: FontWeight.w500,
-                            color:task.isDone ? Colors.green : Colors.grey,
-                          ),
+                          style:  Theme.of(context).textTheme.titleSmall?.copyWith(color:task.isDone ? Colors.green : Colors.grey,),
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height*0.019,),
                       ],
@@ -102,7 +95,7 @@ class TaskItem extends StatelessWidget {
                         color: task.isDone ? Colors.transparent: primary,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: task.isDone ? const Center(child: Text('Done !',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,fontSize: 17),))
+                      child: task.isDone ?  Center(child: Text('Done !',style: Theme.of(context).textTheme.titleMedium?.copyWith(color:task.isDone ? Colors.green : Colors.grey,fontSize: 18),))
                           : const Icon(
                          Icons.check,
                         size: 30  ,
