@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +9,7 @@ import 'package:todo_c9/screens/settings/settings_tab.dart';
 import 'package:todo_c9/screens/tasks/add_task_bottom_sheet.dart';
 import 'package:todo_c9/screens/tasks/tasks_tab.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
+import 'package:todo_c9/shared/styles/theming.dart';
 
 class HomeLayout extends StatefulWidget {
   static const String routName = "homeLayout";
@@ -26,10 +29,12 @@ class _HomeLayoutState extends State<HomeLayout> {
     var provider = Provider.of<MyProvider>(context);
     return Scaffold(
       extendBody: true,
-      backgroundColor: mintGreen,
+      backgroundColor: provider.themeMode == MyThemeData.lightTheme ? mintGreen:darkBlue,
       appBar: AppBar(
+        backgroundColor: provider.themeMode == MyThemeData.lightTheme ? mintGreen:liteBlue,
         actions: [
-          IconButton(onPressed: (){
+          IconButton(
+              onPressed: (){
             FirebaseAuth.instance.signOut();
             Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routName, (route) => false);
           },
@@ -39,7 +44,7 @@ class _HomeLayoutState extends State<HomeLayout> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: primary,
+        backgroundColor: provider.themeMode == MyThemeData.lightTheme ? mintGreen:liteBlue,
         shape: const StadiumBorder(
             side: BorderSide(
           color: Colors.white,
@@ -48,12 +53,14 @@ class _HomeLayoutState extends State<HomeLayout> {
         onPressed: () {
           showAddTaskBottomSheet();
         },
-        child: const Icon(Icons.add,color: Colors.white
+        child: const Icon(
+          Icons.add,color: Colors.white
           ,),
       ),
       bottomNavigationBar: BottomAppBar(
         height: 66,// padding: EdgeInsets.only(bottom:2),
         notchMargin: 8,
+        color: provider.themeMode == MyThemeData.lightTheme ? mintGreen:bottomNavBarColor,
         shape: const CircularNotchedRectangle(),
         child: SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
@@ -85,7 +92,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         context: context, builder: (context){
       return Padding(
         padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: const AddTaskBottomSheet(),
+        child:  AddTaskBottomSheet(),
       );
     });
   }

@@ -1,10 +1,16 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_'
     'slidable.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_c9/model/task_model.dart';
+import 'package:todo_c9/providers/my_provider.dart';
 import 'package:todo_c9/screens/edit_task/edit_task_screen.dart';
 import 'package:todo_c9/shared/network/firebase/firebase_manager.dart';
 import 'package:todo_c9/shared/styles/colors.dart';
+
+import '../../shared/styles/theming.dart';
 
 // ignore: must_be_immutable
 class TaskItem extends StatelessWidget {
@@ -12,10 +18,12 @@ class TaskItem extends StatelessWidget {
   TaskItem(this.task, {super.key});
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(top: 5.0,left: 8,right: 8),
       child: SizedBox(
         child: Card(
+          color: provider.themeMode == MyThemeData.lightTheme ?Colors.white:bottomNavBarColor,
           elevation: 7,
           shape: RoundedRectangleBorder(
             side: const BorderSide(
@@ -39,7 +47,7 @@ class TaskItem extends StatelessWidget {
                       Navigator.push(context, 
                       MaterialPageRoute(builder: (context)=>UpdateTask(taskModel: task)));
                     },
-                    backgroundColor: Colors.blue,
+                    backgroundColor: provider.themeMode == MyThemeData.lightTheme ?primary:liteBlue,
                     icon: Icons.edit,
                     label: 'Edit',
                   ),
@@ -68,10 +76,10 @@ class TaskItem extends StatelessWidget {
                           task.title,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.displayLarge?.copyWith(color:task.isDone ? Colors.green : primary,
+                          style: Theme.of(context).textTheme.displayLarge?.copyWith(color:task.isDone ? Colors.green : provider.themeMode == MyThemeData.lightTheme ?primary:Colors.white,
                           ),
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height*0.001,),
+                        SizedBox(height: MediaQuery.of(context).size.height*0.026,),
                         Text(
                           task.description,
                           maxLines: 10,
@@ -95,7 +103,8 @@ class TaskItem extends StatelessWidget {
                         color: task.isDone ? Colors.transparent: primary,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: task.isDone ?  Center(child: Text('Done !',style: Theme.of(context).textTheme.titleMedium?.copyWith(color:task.isDone ? Colors.green : Colors.grey,fontSize: 18),))
+                      child: task.isDone ?
+                      Center(child: Text('Done !',style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.green,fontSize: 18),))
                           : const Icon(
                          Icons.check,
                         size: 30  ,
